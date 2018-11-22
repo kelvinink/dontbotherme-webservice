@@ -1,9 +1,12 @@
 <?php
+//Required parameters: uid(email), password
+
 session_start(); // Starting Session
 $error=''; // Variable To Store Error Message
 if (isset($_GET['submit'])) {
     if (empty($_GET['uid']) || empty($_GET['passwd'])) {
     $error = "Username or Password is invalid";
+    echo "Username or Password is invalid";
     }else{
         // Connecting to database
         $connection = mysqli_connect("localhost", "kelvin", "7ujmnhy6", "dontborderme_db");
@@ -16,8 +19,8 @@ if (isset($_GET['submit'])) {
         // To protect MySQL injection for Security purpose
         $username = stripslashes($_GET['uid']);
         $password = stripslashes($_GET['passwd']);
-        $username = mysqli_real_escape_string($username);
-        $password = mysqli_real_escape_string($password);
+        $username = mysqli_real_escape_string($connection, $username);
+        $password = mysqli_real_escape_string($connection, $password);
         // Selecting Database
         //$db = mysql_select_db("company", $connection);
         // SQL query to fetch information of registerd users and finds user match.
@@ -25,12 +28,16 @@ if (isset($_GET['submit'])) {
         $query = mysqli_query($connection, $sql);
         $rows = mysqli_num_rows($query);
         if ($rows == 1) {
-            $_SESSION['login_user']=$username; // Initializing Session
+            $_SESSION[$username]=$username; // Initializing Session
+			echo "Your have successfully login as: $username & $password";
+			echo "<br/> Seesion id is: $_SESSION[$username]";
             //header("location: profile.php"); // Redirecting To Other Page
         } else {
             $error = "Username or Password is invalid";
+            echo "Username or Password is invalid";
         }
         mysqli_close($connection); // Closing Connection
     }
 }
+
 ?>
