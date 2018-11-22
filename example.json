@@ -1,4 +1,8 @@
 {
-    "uid": "newregister@hotmail.com",
-    "password": "aaaaaaaa"
+    "uid": "kelvin@gmail.com",
+    "role": "s",
+    "event_title": "New event",
+    "address": "America",
+    "description": "HAAAAAA!",
+    "start_ts": null
 }
