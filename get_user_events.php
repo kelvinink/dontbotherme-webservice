@@ -2,9 +2,10 @@
 //Return all events of a user
 //Required parameters: uid
 
+header("Content-Type: application/json; charset=UTF-8");
 if(isset($_GET["uid"])){
     // Connecting to database
-    include 'db_connect_conf.php';
+    include 'db_connect_inc.php';
     $uid = $_GET["uid"];
     $sql = "SELECT * FROM `user_event` ue INNER JOIN `event` e ON ue.event_id = e.event_id WHERE ue.uid='$uid'";
     $result = mysqli_query($connection, $sql);

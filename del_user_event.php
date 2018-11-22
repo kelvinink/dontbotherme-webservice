@@ -5,7 +5,7 @@
 
 if(isset($_GET["uid"])){
     // Connecting to database
-    include 'db_connect_conf.php';
+    include 'db_connect_inc.php';
     $uid = $_GET["uid"];
     $event_id = $_GET["event_id"];
     //Check whether the user is a receiver of a sender

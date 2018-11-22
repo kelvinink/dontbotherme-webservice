@@ -4,21 +4,18 @@
 session_start(); // Starting Session
 $error=''; // Variable To Store Error Message
 if (isset($_GET['submit'])) {
-    if (empty($_GET['uid']) || empty($_GET['passwd'])) {
+    if (empty($_GET['uid']) || empty($_GET['password'])) {
     $error = "Username or Password is invalid";
     echo "Username or Password is invalid";
     }else{
         // Connecting to database
-        $connection = mysqli_connect("localhost", "kelvin", "7ujmnhy6", "dontborderme_db");
-        // Check connection
-        if (mysqli_connect_errno()) {
-            echo "Failed to connect to MySQL: " . mysqli_connect_error();
-        }
+        include 'db_connect_inc.php';
+        
         // Define $username and $password
         // Establishing Connection with Server by passing server_name, user_id and password as a parameter
         // To protect MySQL injection for Security purpose
         $username = stripslashes($_GET['uid']);
-        $password = stripslashes($_GET['passwd']);
+        $password = stripslashes($_GET['password']);
         $username = mysqli_real_escape_string($connection, $username);
         $password = mysqli_real_escape_string($connection, $password);
         // Selecting Database
