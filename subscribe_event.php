@@ -1,16 +1,22 @@
 <?php
     //Subscribing an existing event
-    //Required parameters: json
-    $json_url = "./example.json";
-    $json = file_get_contents($json_url);
-    $data = json_decode($json, true);
-    
-    $uid = $data["uid"];
-    $event_id = $data["event_id"];
-    $role = 'r';
+	
+	if (isset($_GET['uid'])) {
+		if (empty($_GET['uid']) || empty($_GET['event_id'])) {
+		$error = "Uid or Event id is missed";
+		echo "Uid or Event id is missed";
+		}else{
+			// Connecting to database
+			include 'db_connect_inc.php';
+			
+			$uid = $_GET["uid"];
+			$event_id = $_GET["event_id"];
+			$role = 'r';
 
-    include 'db_connect_inc.php';  
-    $subscribe_sql = "INSERT INTO user_event(uid, event_id, role) 
+			$subscribe_sql = "INSERT INTO user_event(uid, event_id, role) 
                       VALUES ('$uid', '$event_id', '$role')";
-    $result = mysqli_query($connection, $subscribe_sql);
+					  
+			$result = mysqli_query($connection, $subscribe_sql);
+		}
+}
 ?>
